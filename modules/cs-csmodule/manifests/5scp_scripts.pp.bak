@@ -1,0 +1,22 @@
+#$destPath = "/tmp/testfolder"
+#$sourcePath = "master/files" #here, master is the hostname
+
+class cs-csmodule::5scp_scripts inherits cs-csmodule {
+#$destPath = "/tmp/testfolder"
+#$sourcePath = "master/files" #here, master is the hostname
+file {"$scriptDestPath":
+#        path        => "$scriptDestPath",
+        ensure => directoy,
+
+        recurse => 'remote',
+            owner => "root",
+        group => "root",
+        mode => 0644,
+        source => "puppet://master/files/$moduleName/$scriptsFolder"
+    }
+#$moduleName = "cs-csmodule"
+#$scriptsFolder = "jumboScripts"
+
+
+#notify {"Exiting 1scp_base_packages": }
+}

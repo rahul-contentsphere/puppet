@@ -1,0 +1,6 @@
+We have broken jdk-8u20-linux-x64.tar.gz into 2 parts.
+Please use the following command to join the parts.
+
+cat jdk-8u20-linux-x64.tar.gz.parta* >jdk-8u20-linux-x64.tar.gz
+
+#split -b 90M jdk-8u20-linux-x64.tar.gz "jdk-8u20-linux-x64.tar.gz.part" to split the file. ignore this

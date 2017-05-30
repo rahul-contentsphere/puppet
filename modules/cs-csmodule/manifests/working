@@ -1,0 +1,59 @@
+$destPath = "/tmp/testfolder"
+$sourcePath = "master/files" #here, master is the hostname
+
+file {"$destPath/apache-tomcat-9.0.0.M17.tar.gz":
+     ensure => file,
+     owner => "root",
+     group => "root",
+     mode => 0644,
+     source => "puppet://${sourcePath}/apache-tomcat-9.0.0.M17.tar.gz"
+    }
+
+file {"$destPath/elasticsearch-2.1.1.tar.gz":
+     ensure => file,
+     owner => "root",
+     group => "root",
+     mode => 0644,
+     source => "puppet://${sourcePath}/elasticsearch-2.1.1.tar.gz"
+    }
+
+file {"$destPath/jdk-8u20-linux-x64.tar.gz":
+     ensure => file,
+     owner => "root",
+     group => "root",
+     mode => 0644,
+     source => "puppet://${sourcePath}/jdk-8u20-linux-x64.tar.gz"
+    }
+
+file {"$destPath/orientdb-community-2.1.16.tar.gz":
+     ensure => file,
+     owner => "root",
+     group => "root",
+     mode => 0644,
+     source => "puppet://${sourcePath}/orientdb-community-2.1.16.tar.gz"
+    }
+
+exec { 'UntarApacheTomcat':
+     cwd     => "${destPath}",
+     command => "tar -xzf ${destPath}/apache-tomcat-9.0.0.M17.tar.gz",
+     path    => ['/usr/bin', '/usr/sbin', '/bin',],
+     require => File["${destPath}/apache-tomcat-9.0.0.M17.tar.gz"],
+    }
+exec { 'UntarElasticSearch':
+     cwd     => "${destPath}",
+     command => "tar -xzf ${destPath}/elasticsearch-2.1.1.tar.gz",
+     path    => ['/usr/bin', '/usr/sbin', '/bin',],
+     require => File["${destPath}/elasticsearch-2.1.1.tar.gz"],
+    }
+exec { 'UntarJava':
+     cwd     => "${destPath}",
+     command => "tar -xzf ${destPath}/jdk-8u20-linux-x64.tar.gz",
+     path    => ['/usr/bin', '/usr/sbin', '/bin',],
+     require => File["${destPath}/jdk-8u20-linux-x64.tar.gz"],
+    }
+exec { 'UntarOrientdb':
+     cwd     => "${destPath}",
+     command => "tar -xzf ${destPath}/orientdb-community-2.1.16.tar.gz",
+     path    => ['/usr/bin', '/usr/sbin', '/bin',],
+     require => File["${destPath}/orientdb-community-2.1.16.tar.gz"],
+    }

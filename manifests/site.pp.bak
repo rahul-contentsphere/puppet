@@ -1,0 +1,46 @@
+#import 'cs-csmodule'
+
+#include scp
+#import 'puppet.pp'
+#import 'agent1.pp'
+#notify {"Agent connection is successful": }
+node 'slave1' {
+#include 'cs-csmodule'
+#class {cs-csmodule::config:}
+#class {cs-csmodule::service:}
+#class {cs-csmodule::config:}
+#class {cs-csmodule::service:}
+#include cs-csmodule::install,cs-csmodule::service,cs-csmodule::config
+#Class['cs-csmodule::config'] -> Class['cs-csmodule::install'] -> Class['cs-csmodule::service']
+
+
+#include cs-csmodule::3scp
+#Class['cs-csmodule::3scp']
+#include cs-csmodule::1scpBasePackages,cs-csmodule::2extractBasePackages,cs-csmodule::3scp,cs-csmodule::4update
+#Class['cs-csmodule::1scpBasePackages'] -> Class['cs-csmodule::2extractBasePackages'] -> Class['cs-csmodule::3scp'] -> Class['cs-csmodule::4update']
+#include cs-csmodule::1scpbasepackages
+#include cs-csmodule::2extractbasepackages
+#include cs-csmodule::3scp
+#include cs-csmodule::4update
+
+#WORKING
+#include cs-csmodule::1scp_base_packages,cs-csmodule::2extract_base_packages,cs-csmodule::3scp_plugins_war,cs-csmodule::4update_plugins_war
+#Class['cs-csmodule::1scp_base_packages'] -> Class['cs-csmodule::2extract_base_packages'] -> Class['cs-csmodule::3scp_plugins_war'] -> Class['cs-csmodule::4update_plugins_war']
+
+
+#include cs-csmodule::0create_dir_structure
+
+include cs-csmodule::0create_dir_structure,cs-csmodule::1scp_base_packages,cs-csmodule::2extract_base_packages,cs-csmodule::3scp_plugins_war,cs-csmodule::3_9update_plugins_war,cs-csmodule::4update_plugins_war, cs-csmodule::5scp_scripts
+
+Class['cs-csmodule::0create_dir_structure'] -> Class['cs-csmodule::1scp_base_packages'] -> Class['cs-csmodule::2extract_base_packages'] -> Class['cs-csmodule::3scp_plugins_war'] -> Class['cs-csmodule::3_9update_plugins_war'] -> Class['cs-csmodule::4update_plugins_war'] -> Class['cs-csmodule::5scp_scripts']
+
+#include cs-csmodule::5scp_scripts
+#include cs-csmodule::4update_plugins_war
+#include cs-csmodule::6stop_application
+#include cs-csmodule::7start_application
+#include cs-csmodule::3_9update_plugins_war
+}
+
+
+
+
